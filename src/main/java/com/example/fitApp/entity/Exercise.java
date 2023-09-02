@@ -22,10 +22,6 @@ public class Exercise {
     @Column(name = "description", length = 1000)
     private String description;
 
-    @OneToMany
-    @JoinColumn(name="id_exercise")
-    private Collection<SerieSet> series;
-
     private Duration duration;
     @Enumerated(EnumType.STRING)
     private ExerciseType type;
