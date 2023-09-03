@@ -33,10 +33,12 @@ public class SpringSecurityConfig {
                                 .requestMatchers("/index").permitAll()
                                 .requestMatchers("/css/**", "/Source/**", "/fonts/**", "/js/**", "/img/**").permitAll()
                                 .requestMatchers("/users").hasRole("ADMIN")
+                                .requestMatchers("/userProfile").authenticated()
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
+                                .defaultSuccessUrl("/userProfile", true)
                                 .permitAll()
                 ).logout(
                         logout -> logout

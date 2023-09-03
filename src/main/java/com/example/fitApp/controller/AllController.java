@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.security.Principal;
+
 @Controller
 public class AllController {
 
@@ -55,5 +57,19 @@ public class AllController {
         userService.saveUser(userDTO);
         return "redirect:/register?success";
     }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @GetMapping("/userProfile")
+    public String userProfile(Model model, Principal principal) {
+        if (principal != null) {
+            model.addAttribute("email", principal.getName());
+        }
+        return "userProfile";
+    }
+
 
 }
