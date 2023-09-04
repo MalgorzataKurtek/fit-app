@@ -13,4 +13,6 @@ public interface TrainingPlanService {
     List<TrainingPlan> getTrainingPlansByUserEmail(String email);
 
     Optional<TrainingPlan> findById(Long id);
+
+    void saveTrainingPlan(TrainingPlanDTO trainingPlanDTO);
 }

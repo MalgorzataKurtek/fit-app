@@ -1,5 +1,6 @@
 package com.example.fitApp.controller;
 
+import com.example.fitApp.dto.TrainingPlanDTO;
 import com.example.fitApp.dto.UserDTO;
 import com.example.fitApp.entity.TrainingPlan;
 import com.example.fitApp.entity.User;
@@ -86,4 +87,22 @@ public class AllController {
         return "show-user-plans";
     }
 
+    @GetMapping("/add-plan")
+    public String addPlanForm(Model model) {
+        TrainingPlanDTO trainingPlanDTO = new TrainingPlanDTO();
+        model.addAttribute("plan", trainingPlanDTO);
+        return "add-plan";
+    }
+
+    @PostMapping("/add-plan/save")
+    public String saveTrainingPlan(@Valid @ModelAttribute("plan") TrainingPlanDTO trainingPlanDTO,
+                                   BindingResult result, Model model, Principal principal) {
+        if (result.hasErrors()) {
+            model.addAttribute("plan", trainingPlanDTO);
+            return "add-plan";
+        }
+        trainingPlanDTO.setEmail(principal.getName());
+        trainingPlanService.saveTrainingPlan(trainingPlanDTO);
+        return "redirect:/show-user-plans";
+    }
 }

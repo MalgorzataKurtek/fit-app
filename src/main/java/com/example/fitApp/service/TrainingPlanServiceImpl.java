@@ -27,20 +27,21 @@ public class TrainingPlanServiceImpl implements TrainingPlanService {
         return trainingPlanRepository.findByUsers_Email(email);
     }
 
-//    @Override
-//    public void saveTrainingPlan(TrainingPlanDTO trainingPlanDTO) {
-//        TrainingPlan trainingPlan = new TrainingPlan();
-//        trainingPlan.setName(trainingPlanDTO.getName());
-//
-//        User user = userRepository.findByEmail(trainingPlanDTO.getEmail());
-//        if (user != null) {
-//            trainingPlan.setUsers(Arrays.asList(user)); // Inicjalizuj listę użytkowników
-//        }
-//        trainingPlanRepository.save(trainingPlan);
-//    }
 
     @Override
     public Optional<TrainingPlan> findById(Long id) {
         return trainingPlanRepository.findById(id);
+    }
+
+    @Override
+    public void saveTrainingPlan(TrainingPlanDTO trainingPlanDTO) {
+        TrainingPlan trainingPlan = new TrainingPlan();
+        trainingPlan.setName(trainingPlanDTO.getName());
+
+        User user = userRepository.findByEmail(trainingPlanDTO.getEmail());
+        if (user != null) {
+            trainingPlan.setUsers(Arrays.asList(user));
+        }
+        trainingPlanRepository.save(trainingPlan);
     }
 }
