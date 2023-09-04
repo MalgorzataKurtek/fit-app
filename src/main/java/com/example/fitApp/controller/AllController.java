@@ -1,7 +1,9 @@
 package com.example.fitApp.controller;
 
 import com.example.fitApp.dto.UserDTO;
+import com.example.fitApp.entity.TrainingPlan;
 import com.example.fitApp.entity.User;
+import com.example.fitApp.service.TrainingPlanService;
 import com.example.fitApp.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -12,14 +14,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class AllController {
 
     private UserService userService;
+    private TrainingPlanService trainingPlanService;
 
-    public AllController (UserService userService) {
+    public AllController(UserService userService, TrainingPlanService trainingPlanService) {
         this.userService = userService;
+        this.trainingPlanService = trainingPlanService;
     }
 
 
@@ -27,7 +32,6 @@ public class AllController {
     public String home() {
         return "index";
     }
-
 
 
     @GetMapping("/register")
@@ -71,5 +75,15 @@ public class AllController {
         return "userProfile";
     }
 
+    @GetMapping("/show-user-plans")
+    public String appPlans(Model model, Principal principal) {
+        if (principal != null) {
+            String email = principal.getName();
+            List<TrainingPlan> userTrainingPlans = trainingPlanService.getTrainingPlansByUserEmail(email);
+            model.addAttribute("email", email);
+            model.addAttribute("userTrainingPlans", userTrainingPlans);
+        }
+        return "show-user-plans";
+    }
 
 }

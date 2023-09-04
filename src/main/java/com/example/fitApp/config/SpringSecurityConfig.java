@@ -34,6 +34,7 @@ public class SpringSecurityConfig {
                                 .requestMatchers("/css/**", "/Source/**", "/fonts/**", "/js/**", "/img/**").permitAll()
                                 .requestMatchers("/users").hasRole("ADMIN")
                                 .requestMatchers("/userProfile").authenticated()
+                                .requestMatchers("/show-user-plans").authenticated()
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")
