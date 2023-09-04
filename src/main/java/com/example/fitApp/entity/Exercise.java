@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.time.Duration;
 import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Table(name = "exercise")
@@ -22,7 +23,13 @@ public class Exercise {
     @Column(name = "description", length = 1000)
     private String description;
 
-    private Duration duration;
+    @ManyToMany
+    private Set<Activity> activities;
+
+    private long duration;
+
+    private String formattedDuration;
+    private int countOfSerie;
     @Enumerated(EnumType.STRING)
     private ExerciseType type;
 
@@ -31,4 +38,5 @@ public class Exercise {
     public enum ExerciseType {
         CARDIO, STRENGTH, STRETCHING
     }
+
 }

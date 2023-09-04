@@ -2,8 +2,12 @@ package com.example.fitApp.controller;
 
 import com.example.fitApp.dto.TrainingPlanDTO;
 import com.example.fitApp.dto.UserDTO;
+import com.example.fitApp.entity.Activity;
+import com.example.fitApp.entity.Exercise;
 import com.example.fitApp.entity.TrainingPlan;
 import com.example.fitApp.entity.User;
+import com.example.fitApp.service.ActivityService;
+import com.example.fitApp.service.ExerciseService;
 import com.example.fitApp.service.TrainingPlanService;
 import com.example.fitApp.service.UserService;
 import jakarta.validation.Valid;
@@ -24,11 +28,14 @@ public class AllController {
 
     private UserService userService;
     private TrainingPlanService trainingPlanService;
+    private ExerciseService exerciseService;
+    private ActivityService activityService;
 
-    public AllController(UserService userService, TrainingPlanService trainingPlanService) {
+    public AllController(UserService userService, TrainingPlanService trainingPlanService, ExerciseService exerciseService, ActivityService activityService) {
         this.userService = userService;
         this.trainingPlanService = trainingPlanService;
-
+        this.exerciseService = exerciseService;
+        this.activityService = activityService;
     }
 
 
@@ -128,5 +135,31 @@ public class AllController {
     }
 
 
+    @GetMapping("/activity-exercises/{id}")
+    public String showExercisesForActivity(@PathVariable Long id, Model model, Principal principal) {
+        Optional<Activity> optionalActivity = activityService.findById(id);
+
+        if (optionalActivity.isPresent()) {
+            Activity activity = optionalActivity.get();
+            List<Exercise> exercises = exerciseService.findByActivities_Id(id);
+
+            exercises.forEach(exercise -> {
+                long durationInSeconds = exercise.getDuration();
+                String formattedDuration = exerciseService.formatDuration(durationInSeconds);
+                exercise.setFormattedDuration(formattedDuration);
+            });
+
+            model.addAttribute("activity", activity);
+            model.addAttribute("exercises", exercises);
+
+            if (principal != null) {
+                String userEmail = principal.getName();
+                model.addAttribute("userEmail", userEmail);
+            }
+            return "activity-exercises";
+        } else {
+            return "activity-not-found";
+        }
+    }
 
 }
