@@ -12,10 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class AllController {
@@ -26,6 +28,7 @@ public class AllController {
     public AllController(UserService userService, TrainingPlanService trainingPlanService) {
         this.userService = userService;
         this.trainingPlanService = trainingPlanService;
+
     }
 
 
@@ -105,4 +108,25 @@ public class AllController {
         trainingPlanService.saveTrainingPlan(trainingPlanDTO);
         return "redirect:/show-user-plans";
     }
+
+    @GetMapping("/plan-details/{id}")
+    public String showTrainingPlan(@PathVariable Long id, Model model, Principal principal) {
+        Optional<TrainingPlan> trainingPlanOptional = trainingPlanService.findById(id);
+        if (trainingPlanOptional.isPresent()) {
+            TrainingPlan trainingPlan = trainingPlanOptional.get();
+
+            model.addAttribute("trainingPlan", trainingPlan);
+
+            if (principal != null) {
+                String userEmail = principal.getName();
+                model.addAttribute("userEmail", userEmail);
+            }
+            return "plan-details";
+        } else {
+            return "errorPage";
+        }
+    }
+
+
+
 }

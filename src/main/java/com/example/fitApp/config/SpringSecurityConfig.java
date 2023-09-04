@@ -37,6 +37,7 @@ public class SpringSecurityConfig {
                                 .requestMatchers("/show-user-plans").authenticated()
                                 .requestMatchers("/add-plan").authenticated()
                                 .requestMatchers("/add-plan/save").authenticated()
+                                .requestMatchers("/plan-details/{id}").authenticated()
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")
