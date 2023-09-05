@@ -21,7 +21,7 @@
       Fit <span>Application</span>
     </a>
     <div class="d-flex justify-content-around">
-      <h4 class="text-light mr-3" th:text="${email}"></h4>
+      <h4 class="text-light mr-3" th:text="${userEmail}"></h4>
       <div class="circle-div text-center"><i class="fas fa-user icon-user"></i></div>
     </div>
   </nav>
@@ -61,10 +61,10 @@
       <div class="dashboard-content border-dashed p-3 m-4 view-height">
         <div class="row border-bottom border-3 p-1 m-1">
           <div class="col noPadding">
-            <h3 class="color-header text-uppercase">List of Activities</h3>
+            <h3 class="color-header text-uppercase">List of Exercises</h3>
           </div>
           <div class="col d-flex justify-content-end mb-2 noPadding">
-            <a th:href="@{/userProfile}" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">back</a>
+            <a th:href="@{/show-activity}" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">back</a>
           </div>
         </div>
 
@@ -74,17 +74,15 @@
             <tr class="d-flex">
               <th class="col-1">ID</th>
               <th class="col-2">NAME</th>
-              <th class="col-2 center">ACTION</th>
+              <th class="col-2">DESCRIPTION</th>
             </tr>
             </thead>
             <tbody class="text-color-lighter">
 
-            <tr class="d-flex" th:each="activity : ${allActivities}">
-              <td class="col-1" th:text="${activity.id}"></td>
-              <td class="col-2" th:text="${activity.name}"></td>
-              <td class="col-2 d-flex align-items-center justify-content-center flex-wrap">
-                <a th:href="@{/show-exercises/{id}(id=${activity.id})}" class="btn btn-info rounded-0 text-light m-1">details</a>
-              </td>
+            <tr class="d-flex" th:each="exercise : ${exercises}">
+              <td class="col-1" th:text="${exercise.id}"></td>
+              <td class="col-2" th:text="${exercise.name}"></td>
+              <td class="col-2" th:text="${exercise.description}"></td>
             </tr>
             </tbody>
           </table>

@@ -13,4 +13,5 @@ public interface ExerciseService {
     long getDurationInSeconds(Duration duration);
 
     String formatDuration(long durationInSeconds);
+
 }

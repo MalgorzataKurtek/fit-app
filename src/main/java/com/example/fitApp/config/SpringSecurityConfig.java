@@ -41,6 +41,7 @@ public class SpringSecurityConfig {
                                 .requestMatchers("/activity-exercises/{id}").authenticated()
                                 .requestMatchers("/delete-plan/{id}").authenticated()
                                 .requestMatchers("/show-activity").authenticated()
+                                .requestMatchers("/show-exercises/{id}").authenticated()
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")

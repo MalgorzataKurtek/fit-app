@@ -177,4 +177,25 @@ public class AllController {
         }
         return "show-activity";
     }
+
+    @GetMapping("/show-exercises/{id}")
+    public String showExercises(@PathVariable Long id, Model model, Principal principal) {
+        Optional<Activity> optionalActivity = activityService.findById(id);
+
+        if (optionalActivity.isPresent()) {
+            Activity activity = optionalActivity.get();
+            List<Exercise> exercises = exerciseService.findByActivities_Id(id);
+
+            model.addAttribute("activity", activity);
+            model.addAttribute("exercises", exercises);
+
+            if (principal != null) {
+                String userEmail = principal.getName();
+                model.addAttribute("userEmail", userEmail);
+            }
+            return "show-exercises";
+        } else {
+            return "errorPage";
+        }
+    }
 }
