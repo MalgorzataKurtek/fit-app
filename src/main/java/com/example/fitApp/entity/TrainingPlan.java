@@ -18,7 +18,7 @@ public class TrainingPlan {
     private long id;
     private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "plan_user",
             joinColumns = {@JoinColumn(name = "PLAN_ID", referencedColumnName = "ID")},
@@ -26,7 +26,7 @@ public class TrainingPlan {
     private Collection<User> users;
 
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "plan_activity",
             joinColumns = {@JoinColumn(name = "PLAN_ID", referencedColumnName = "ID")},
@@ -34,6 +34,6 @@ public class TrainingPlan {
     )
     private Collection<Activity> activities;
 
-    @OneToMany(mappedBy = "trainingPlan", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "trainingPlan", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<PlanActivity> planActivities;
 }

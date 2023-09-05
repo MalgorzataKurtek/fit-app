@@ -44,4 +44,10 @@ public class TrainingPlanServiceImpl implements TrainingPlanService {
         }
         trainingPlanRepository.save(trainingPlan);
     }
+
+
+    @Override
+    public void deleteById(Long id) {
+        trainingPlanRepository.deleteById(id);
+    }
 }

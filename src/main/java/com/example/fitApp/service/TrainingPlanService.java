@@ -15,4 +15,6 @@ public interface TrainingPlanService {
     Optional<TrainingPlan> findById(Long id);
 
     void saveTrainingPlan(TrainingPlanDTO trainingPlanDTO);
+
+    void deleteById(Long id);
 }
