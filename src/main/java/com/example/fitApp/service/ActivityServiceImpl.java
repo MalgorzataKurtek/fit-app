@@ -29,4 +29,8 @@ public class ActivityServiceImpl implements ActivityService {
                 .orElseThrow(() -> new RuntimeException("Activity not found with ID: " + id));
         return exerciseRepository.findByActivities_Id(id);
     }
+
+    public List<Activity> getAllActivities() {
+        return activityRepository.findAll();
+    }
 }

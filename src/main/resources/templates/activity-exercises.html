@@ -37,14 +37,14 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/show-plans}">
+                <a class="nav-link" th:href="@{/show-user-plans}">
                     <span>Training Plans</span>
                     <i class="fas fa-angle-right"></i>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/html/app-edit-user-data.html">
-                    <span>Exercises</span>
+                <a class="nav-link" th:href="@{/show-activity}">
+                    <span>Activity</span>
                     <i class="fas fa-angle-right"></i>
                 </a>
             </li>
@@ -62,6 +62,9 @@
                 <div class="row border-bottom border-3 p-1 m-1">
                     <div class="col noPadding">
                         <h3 class="color-header text-uppercase">List of exercises</h3>
+                    </div>
+                    <div class="col d-flex justify-content-end mb-2 noPadding">
+                        <a th:href="@{/plan-details/{id}(id=${id})}" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">back</a>
                     </div>
                 </div>
 

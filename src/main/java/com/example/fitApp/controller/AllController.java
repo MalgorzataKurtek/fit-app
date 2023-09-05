@@ -166,4 +166,15 @@ public class AllController {
         return "redirect:/show-user-plans";
     }
 
+    @GetMapping("/show-activity")
+    public String showActivity(Model model, Principal principal) {
+        if (principal != null) {
+            String email = principal.getName();
+            List<Activity> allActivities = activityService.getAllActivities();
+            model.addAttribute("email", email);
+            model.addAttribute("allActivities", allActivities);
+
+        }
+        return "show-activity";
+    }
 }

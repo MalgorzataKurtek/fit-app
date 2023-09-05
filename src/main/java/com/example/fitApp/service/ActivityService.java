@@ -12,4 +12,6 @@ public interface ActivityService {
     Optional<Activity> findById(Long id);
 
     List<Exercise> getExercisesByActivityId(Long id);
+
+    List<Activity> getAllActivities();
 }
