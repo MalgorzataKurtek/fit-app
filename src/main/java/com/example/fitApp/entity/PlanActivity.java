@@ -28,5 +28,5 @@ public class PlanActivity {
     @JoinColumn(name = "activity_id")
     private Activity activity;
 
-
+    private Long dayOfWeekActivityId;
 }
